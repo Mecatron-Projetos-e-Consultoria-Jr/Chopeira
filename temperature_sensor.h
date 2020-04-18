@@ -35,10 +35,10 @@ class temperature_sensor
         float get_current_temperature(){
 
             // Get the analog input
-            int raw_input = analogRead()
+            int raw_input = analogRead(pin);
 
             // Convert the analog input to voltage         
-            float input_voltage = map(raw_input,0,255,0,5) // map(value, fromLow, fromHigh, toLow, toHigh)
+            float input_voltage = map(raw_input,0,255,0,5); // map(value, fromLow, fromHigh, toLow, toHigh)
 
             // Get difference in voltage and calculate the current temperature
             float difference_in_voltage = input_voltage - base_voltage;
