@@ -4,12 +4,12 @@
 //                                                                                                                         // 
 //  red - supply (5v)                                                                                                      // 
 //  white - signal (analog input)                                                                                          // 
-//  blue/black - GND                
-//    
-// 
-//  -50ºC ------- 0.225v
-// 
-//  +0.0225 V para cada 1ºC de aumento
+//  blue/black - GND                                                                                                       //
+//                                                                                                                         //
+//                                                                                                                         //
+//  -50ºC ------- 0.225v                                                                                                   //
+//                                                                                                                         //
+//  +0.0225 V para cada 1ºC de aumento                                                                                     //
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 
 
@@ -32,13 +32,13 @@ class temperature_sensor
         }
 
         // function to read the temp 
-        float get_current_temperature(){
+        inline float get_current_temperature(){
 
             // Get the analog input
             int raw_input = analogRead(pin);
 
             // Convert the analog input to voltage         
-            float input_voltage = map(raw_input,0,255,0,5); // map(value, fromLow, fromHigh, toLow, toHigh)
+            float input_voltage = map(raw_input,0,1023,0,5); // map(value, fromLow, fromHigh, toLow, toHigh)
 
             // Get difference in voltage and calculate the current temperature
             float difference_in_voltage = input_voltage - base_voltage;
