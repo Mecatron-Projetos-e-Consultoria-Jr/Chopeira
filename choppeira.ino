@@ -44,7 +44,7 @@ void loop(){
     // Check to see if the button is pressed 
     bool button_pressed = digitalRead(button);
 
-    while (button_pressed)
+    while (button_pressed && current_temperature <= target_temperature)
     {
         // open the valve 
         valve.open_valve();
@@ -52,6 +52,9 @@ void loop(){
         // update the button state 
         button_pressed = digitalRead(button);
 
+        // update the temperature value 
+        current_temperature = sensor.get_current_temperature();
+        
         // if the button stopped being pressed, close the valve 
         if(!button_pressed){
 
