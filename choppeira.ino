@@ -22,14 +22,8 @@ button power_button(13,A0,A1,A2);
 // Set the target temperature for the liquid
 float target_temperature = 0.0f;
 
-// Set the pin in which the button will be wired to
-int button = 11;
-
 void setup(){
     
-    // Set the pin mode for the button 
-    pinMode(button,INPUT);
-
     // Start the emperature sensor 
     sensors.begin();
 
