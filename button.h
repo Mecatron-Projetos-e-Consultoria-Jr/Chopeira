@@ -10,7 +10,7 @@ class button{
         char color_name;
 
     public:
-        button(int data_pin,int r_pin, int b_pin, int g_pin){
+        button(int data_pin,int r_pin, int g_pin, int b_pin){
             red_pin = r_pin;
             blue_pin = b_pin;
             green_pin = g_pin;
@@ -23,6 +23,9 @@ class button{
 
             // set the pin mode for the button to input
             pinMode(input_pin,INPUT);
+
+            // Set the default color to red 
+            set_color('R');
         }
 
         bool is_pressed(){
