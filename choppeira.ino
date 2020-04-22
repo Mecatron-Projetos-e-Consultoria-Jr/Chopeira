@@ -20,7 +20,8 @@ solenoid  valve(10);
 button power_button(13,A0,A1,A2);
 
 // Set the target temperature for the liquid
-float target_temperature = 0.0f;
+float min_target_temperature = 0.0f;
+float max_target_temperature = 2.0f;
 
 void setup(){
     
@@ -40,7 +41,7 @@ void loop(){
     float current_temperature = sensors.getTempCByIndex(0);
 
     // If the temperature is higher than the target, turn on the cooling system
-    if (current_temperature > target_temperature){
+    if (current_temperature > max_target_temperature){
         
         // turn on the cooling system
         cooling_system.turn_on_cooling();
@@ -49,8 +50,8 @@ void loop(){
         power_button.set_color('R');
     }
 
-    // If the temperature is lower than the target, turn off the cooling system
-    else if (current_temperature <= target_temperature){
+    // If the temperature is lower than the min_target, turn off the cooling system
+    else if (current_temperature <= min_target_temperature){
 
         // turn off the cooling system 
         cooling_system.turn_off_cooling();
@@ -60,7 +61,7 @@ void loop(){
     }
     
 
-    while (power_button.is_pressed() && current_temperature <= target_temperature)
+    while (power_button.is_pressed() && current_temperature <= max_target_temperature)
     {
         // open the valve 
         valve.open_valve();
