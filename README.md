@@ -223,7 +223,8 @@ Set the target temperature:
 
 ```c++
 // Set the target temperature for the liquid
-float target_temperature = 0.0f;
+float min_target_temperature = 0.0f;
+float max_target_temperature = 2.0f;
 ```
 
 Start the sensors and close the valves (prevent liquid waste): 
@@ -256,7 +257,7 @@ If the temperature is above target, turn on cooling and set the RGB color to red
 
 ```c++
 // If the temperature is higher than the target, turn on the cooling system
-    if (current_temperature > target_temperature){
+    if (current_temperature > max_target_temperature){
         
         // turn on the cooling system
         cooling_system.turn_on_cooling();
@@ -270,33 +271,24 @@ If the temperature is equal or bellow the target, turn off the cooling and set t
 
 ```c++
 // If the temperature is lower than the target, turn off the cooling system
-    else if (current_temperature <= target_temperature){
+    else if (current_temperature <= min_target_temperature){
 
         // turn off the cooling system 
         cooling_system.turn_off_cooling();
 
-        // Set the button color to green 
-        power_button.set_color('G');
     }
 ```
 
-If the button is pressed and the temperature is within the threshold, open the valve and let the liquid flow:
+If the temperature is within the threshold, open the valve and let the liquid flow, and set the RGB color to Green, so the user knows the machine is operating:
 
 ```c++
-while (power_button.is_pressed() && current_temperature <= target_temperature)
+while (current_temperature <= max_target_temperature)
     {
         // open the valve 
         valve.open_valve();
 
-        // update the temperature value 
-        current_temperature = sensors.getTempCByIndex(0);
-        
-        // if the button stopped being pressed, close the valve 
-        if(!power_button.is_pressed()){
-
-            // close the valve 
-            valve.close_valve();
-        }
+        // Set the button color to green, so the user knows the valve is open
+        power_button.set_color('G');
 
     }
 ```
