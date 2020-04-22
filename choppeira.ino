@@ -56,25 +56,16 @@ void loop(){
         // turn off the cooling system 
         cooling_system.turn_off_cooling();
 
-        // Set the button color to green 
-        power_button.set_color('G');
     }
     
-
-    while (power_button.is_pressed() && current_temperature <= max_target_temperature)
+    // if the temperature is lower or equal to the max temperature allowed in the threshold, open the solenoid valve
+    if (current_temperature <= max_target_temperature)
     {
         // open the valve 
         valve.open_valve();
 
-        // update the temperature value 
-        current_temperature = sensors.getTempCByIndex(0);
-        
-        // if the button stopped being pressed, close the valve 
-        if(!power_button.is_pressed()){
-
-            // close the valve 
-            valve.close_valve();
-        }
+        // Set the button color to green, so the user knows the valve is open
+        power_button.set_color('G');
 
     }
     
