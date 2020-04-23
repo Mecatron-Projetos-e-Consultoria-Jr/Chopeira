@@ -40,11 +40,14 @@ void loop(){
     // Check the temperature  - by index means it's getting the data for the first sensor (if in the future more sensores are added) -- index starts at 0
     float current_temperature = sensors.getTempCByIndex(0);
 
-    // If the temperature is higher than the target, turn on the cooling system
+    // If the temperature is higher than the target, turn on the cooling system and close the valve 
     if (current_temperature > max_target_temperature){
         
         // turn on the cooling system
         cooling_system.turn_on_cooling();
+
+        // Close the valve so the user can't get hot beer 
+        valve.close_valve();
 
         // Turn the LED to red 
         power_button.set_color('R');
