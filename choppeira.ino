@@ -23,6 +23,10 @@ button power_button(13,A0,A1,A2);
 float min_target_temperature = 0.0f;
 float max_target_temperature = 2.0f;
 
+// bool to know if it's the first iteration for the machine
+bool first_iteration = true;
+
+
 void setup(){
     
     // Start the emperature sensor 
@@ -46,8 +50,20 @@ void loop(){
         // turn on the cooling system
         cooling_system.turn_on_cooling();
 
-        // Turn the LED to red 
-        power_button.set_color('R');
+        // If it's the first iteration, turn the LED red so the user knows the machine won't release beer 
+        if (first_iteration){
+
+            // Turn the LED to red 
+            power_button.set_color('R');
+        }
+
+        // If it's not the first iteration, the solenoid will continue to be open, but set the color to yellow so the user knows the beer is not within the temperature threshold
+        if (!first_iteration){
+            
+            // Set the color to yellow
+            power_button.set_color('Y');
+        }
+        
     }
 
     // If the temperature is lower than the min_target, turn off the cooling system
@@ -58,9 +74,12 @@ void loop(){
 
     }
     
-    // if the temperature is lower or equal to the max temperature allowed in the threshold, open the solenoid valve
+    // if the temperature is lower or equal to the max temperature allowed in the threshold, open the solenoid valve and leave it open. The only moment the valve is closed is at the first iteration 
     if (current_temperature <= max_target_temperature)
     {
+        // Set the first iteration variable to false, since the timeperature already reached the threshold at least fir the first time
+        first_iteration = false;
+
         // open the valve 
         valve.open_valve();
 
@@ -68,5 +87,8 @@ void loop(){
         power_button.set_color('G');
 
     }
+
+    // wait for one second before next iteration (1000 ms) ----- time between measurements for the temperature sensor 
+    delay(1000);
     
 }
