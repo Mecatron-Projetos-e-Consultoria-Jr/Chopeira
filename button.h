@@ -64,6 +64,11 @@ class button{
                     analogWrite(red_pin,0);
                     break;
 
+                case 'Y':
+                    analogWrite(green_pin,255);
+                    analogWrite(blue_pin,0);
+                    analogWrite(red_pin,255);
+                    break;
             }
         }
 };
