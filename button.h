@@ -53,7 +53,6 @@ class button{
                     analogWrite(red_pin,0);
                     analogWrite(blue_pin,0);
                     analogWrite(green_pin,0);
-
                     break;
 
                 
@@ -63,6 +62,8 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,0);
                     break;
+
+
 
                 case 'Y':
                     analogWrite(green_pin,255);
