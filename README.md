@@ -49,6 +49,7 @@ Takes a character as argument - the initial of the color the LED should be.
 |------|-------------|
 | `R`  | `Red`       |
 | `G`  | `Green`     |
+| `Y`  | `Yellow`    |
 
 ```c++
 void set_color(char color){
@@ -78,6 +79,14 @@ void set_color(char color){
                     analogWrite(green_pin,255);
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,0);
+                    break;
+
+
+
+                case 'Y':
+                    analogWrite(green_pin,255);
+                    analogWrite(blue_pin,0);
+                    analogWrite(red_pin,255);
                     break;
 
             }
@@ -227,6 +236,11 @@ float min_target_temperature = 0.0f;
 float max_target_temperature = 2.0f;
 ```
 
+Creates a boolean variable to track rather or not it's the first iteration for the machine
+```c++
+bool first_iteration = true;
+```
+
 Start the sensors and close the valves (prevent liquid waste): 
 
 ```c++
@@ -253,7 +267,7 @@ Get the temperature from the sensor:
     float current_temperature = sensors.getTempCByIndex(0);
 ```
 
-If the temperature is above target, turn on cooling and set the RGB color to red and blinking so the user knows.
+If the temperature is above target, turn on cooling, if it is the first iteration of the machine it means that the solenoid valve will be closed, so set the RGB color to red. If it is nor the first iteration, even though the temperature is outside the threshold the valve will not close, so set the RGB to yellow so the user knows it's still possible to get the beer, but it will not be in the right temperature and that the user should wait.
 
 ```c++
 // If the temperature is higher than the target, turn on the cooling system
@@ -262,8 +276,20 @@ If the temperature is above target, turn on cooling and set the RGB color to red
         // turn on the cooling system
         cooling_system.turn_on_cooling();
 
-        // Turn the LED to red 
-        power_button.set_color('R');
+        // If it's the first iteration, turn the LED red so the user knows the machine won't release beer 
+        if (first_iteration){
+
+            // Turn the LED to red 
+            power_button.set_color('R');
+        }
+
+        // If it's not the first iteration, the solenoid will continue to be open, but set the color to yellow so the user knows the beer is not within the temperature threshold
+        if (!first_iteration){
+            
+            // Set the color to yellow
+            power_button.set_color('Y');
+        }
+        
     }
 ```
 
@@ -284,6 +310,9 @@ If the temperature is within the threshold, open the valve and let the liquid fl
 ```c++
 while (current_temperature <= max_target_temperature)
     {
+        // Set the first iteration variable to false, since the timeperature already reached the threshold at least fir the first time
+        first_iteration = false;
+
         // open the valve 
         valve.open_valve();
 
