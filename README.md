@@ -1,5 +1,6 @@
 # Chopeira Documentation 
 
+![](Chopeira.png)
 
 1. [Button class](#Button-Class)  <br>
 2. [Compressor class](#Compressor-Class) <br>
