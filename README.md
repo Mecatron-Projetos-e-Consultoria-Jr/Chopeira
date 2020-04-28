@@ -306,12 +306,12 @@ If the temperature is equal or bellow the target, turn off the cooling and set t
     }
 ```
 
-If the temperature is within the threshold, open the valve and let the liquid flow, and set the RGB color to Green, so the user knows the machine is operating:
+If the temperature is within the threshold, open the valve (and leave it open) and let the liquid flow, and set the RGB color to Green, so the user knows the machine is operating:
 
 ```c++
-while (current_temperature <= max_target_temperature)
+if (current_temperature <= max_target_temperature)
     {
-        // Set the first iteration variable to false, since the timeperature already reached the threshold at least fir the first time
+        // Set the first iteration variable to false, since the timeperature already reached the threshold at least for the first time
         first_iteration = false;
 
         // open the valve 
@@ -321,4 +321,10 @@ while (current_temperature <= max_target_temperature)
         power_button.set_color('G');
 
     }
+```
+
+Wait the necessary time for the temperature sensor to update its readings 
+```c++
+// wait for one second before next iteration (1000 ms) ----- time between measurements for the temperature sensor 
+    delay(1000);
 ```
