@@ -1,4 +1,4 @@
-// #define log(x) Serial.println(x)
+#define log(x) Serial.println(x)
 
 class button{
 
@@ -13,28 +13,26 @@ class button{
 
     public:
         button(int data_pin,int r_pin, int g_pin, int b_pin){
-            red_pin = r_pin;
-            blue_pin = b_pin;
-            green_pin = g_pin;
-            input_pin = data_pin;
 
-            // set the pin mode to output
-            pinMode(red_pin,OUTPUT);
-            pinMode(blue_pin,OUTPUT);
-            pinMode(green_pin,OUTPUT);
+             red_pin = r_pin;
+             blue_pin = b_pin;
+             green_pin = g_pin;
+             input_pin = data_pin;
 
-            // set the pin mode for the button to input
-            pinMode(input_pin,INPUT);
+             // set the pin mode to output
+             pinMode(red_pin,OUTPUT);
+             pinMode(blue_pin,OUTPUT);
+             pinMode(green_pin,OUTPUT);
 
-            // Set the default color to red 
-            set_color('R');
+             // set the pin mode for the button to input
+             pinMode(input_pin,INPUT);
         }
 
         bool is_pressed(){
 
             // read the input pin
             bool button_state = digitalRead(input_pin);
-            Serial.println("[button.h]Button Pressed");
+            log("[button.h]Button Pressed");
 
             return button_state;
         }
@@ -58,7 +56,7 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(green_pin,0);
                     
-                    Serial.println("[button.h]Setting LED color to RED");
+                    log("[button.h]Setting LED color to RED");
                     break;
 
                 
@@ -68,7 +66,7 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,0);
 
-                    Serial.println("[button.h]Setting LED color to GREEN");
+                    log("[button.h]Setting LED color to GREEN");
                     break;
 
 
@@ -78,7 +76,7 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,255);
 
-                    Serial.println("[button.h]Setting LED color to YELLOW");
+                    log("[button.h]Setting LED color to YELLOW");
                     break;
             }
         }
