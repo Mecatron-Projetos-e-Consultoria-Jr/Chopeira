@@ -1,3 +1,5 @@
+// #define log(x) Serial.println(x)
+
 class button{
 
     private:
@@ -32,6 +34,8 @@ class button{
 
             // read the input pin
             bool button_state = digitalRead(input_pin);
+            Serial.println("[button.h]Button Pressed");
+
             return button_state;
         }
 
@@ -53,6 +57,8 @@ class button{
                     analogWrite(red_pin,0);
                     analogWrite(blue_pin,0);
                     analogWrite(green_pin,0);
+                    
+                    Serial.println("[button.h]Setting LED color to RED");
                     break;
 
                 
@@ -61,6 +67,8 @@ class button{
                     analogWrite(green_pin,255);
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,0);
+
+                    Serial.println("[button.h]Setting LED color to GREEN");
                     break;
 
 
@@ -69,6 +77,8 @@ class button{
                     analogWrite(green_pin,255);
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,255);
+
+                    Serial.println("[button.h]Setting LED color to YELLOW");
                     break;
             }
         }
