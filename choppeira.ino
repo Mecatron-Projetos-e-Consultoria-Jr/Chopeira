@@ -58,7 +58,7 @@ void loop(){
         }
 
         // If it's not the first iteration, the solenoid will continue to be open, but set the color to yellow so the user knows the beer is not within the temperature threshold
-        if (!first_iteration){
+        else if (!first_iteration){
             
             // Set the color to yellow
             power_button.set_color('Y');
@@ -75,7 +75,7 @@ void loop(){
     }
     
     // if the temperature is lower or equal to the max temperature allowed in the threshold, open the solenoid valve and leave it open. The only moment the valve is closed is at the first iteration 
-    if (current_temperature <= max_target_temperature)
+    else if (current_temperature <= max_target_temperature)
     {
         // Set the first iteration variable to false, since the timeperature already reached the threshold at least for the first time
         first_iteration = false;
