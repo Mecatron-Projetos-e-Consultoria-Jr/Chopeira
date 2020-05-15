@@ -285,7 +285,7 @@ If the temperature is above target, turn on cooling, if it is the first iteratio
         }
 
         // If it's not the first iteration, the solenoid will continue to be open, but set the color to yellow so the user knows the beer is not within the temperature threshold
-        if (!first_iteration){
+        else if (!first_iteration){
             
             // Set the color to yellow
             power_button.set_color('Y');
@@ -309,7 +309,7 @@ If the temperature is equal or bellow the target, turn off the cooling and set t
 If the temperature is within the threshold, open the valve (and leave it open) and let the liquid flow, and set the RGB color to Green, so the user knows the machine is operating:
 
 ```c++
-if (current_temperature <= max_target_temperature)
+else if (current_temperature <= max_target_temperature)
     {
         // Set the first iteration variable to false, since the timeperature already reached the threshold at least for the first time
         first_iteration = false;
