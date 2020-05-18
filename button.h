@@ -24,8 +24,6 @@ class button{
             // set the pin mode for the button to input
             pinMode(input_pin,INPUT);
 
-            // Set the default color to red 
-            set_color('R');
         }
 
         bool is_pressed(){
