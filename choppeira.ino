@@ -52,6 +52,10 @@ void setup(){
     // Set the LED color to RED
     power_button.set_color('R');
 
+    // Start the boot sequence for the LED, to let the user know that it's starting
+    log("[choppeira.ino]Initializing the boot sequence for the LED");
+    power_button.boot_routine();
+
 }
 
 void loop(){
