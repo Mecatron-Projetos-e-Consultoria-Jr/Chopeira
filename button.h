@@ -23,7 +23,7 @@ class button{
 
             // set the pin mode for the button to input
             pinMode(input_pin,INPUT);
-
+ 
         }
 
         bool is_pressed(){
