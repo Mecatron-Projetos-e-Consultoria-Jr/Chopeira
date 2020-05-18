@@ -72,4 +72,25 @@ class button{
                     break;
             }
         }
+
+        void turn_led_off(){
+
+            // Turn the LED off
+            analogWrite(red_pin,0);
+            analogWrite(blue_pin,0);
+            analogWrite(green_pin,0);
+        }
+        
+        void boot_routine(){
+
+            // blink 3 times the led with the green color, to let the user know the boot sequence is starting
+            for (int i = 0; i < 3; i++){
+
+                button::set_color('G');
+                delay(1000);
+                button::turn_led_off();
+                delay(1000);
+            }
+            
+        }
 };
