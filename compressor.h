@@ -1,4 +1,4 @@
-#define log(x) Serial.println(x)
+
 
 class compressor {
 
@@ -17,14 +17,14 @@ class compressor {
 
             // Close the relay (so the cooler turns on)
             digitalWrite(pin,HIGH);
-            log("[compressor.h]Setting cooling to HIGH");
+            log_message("[compressor.h]Setting cooling to HIGH");
         }
 
         void turn_off_cooling(){
 
             // Open the relay
             digitalWrite(pin,LOW);
-            log("[compressor.h]Setting cooling to LOW");
+            log_message("[compressor.h]Setting cooling to LOW");
         }
 
 };

@@ -1,4 +1,4 @@
-#define log(x) Serial.println(x)
+
 
 class solenoid {
 
@@ -17,14 +17,14 @@ class solenoid {
 
             // Open the valve so the liquid comes out 
             digitalWrite(pin,HIGH);
-            log("[solenoid.h]Setting solenoid to HIGH");
+            log_message(F("[solenoid.h]Setting solenoid to HIGH"));
         }
 
         void close_valve(){
 
             // Close the valve 
             digitalWrite(pin,LOW);
-            log("[solenoid.h]Setting solenoid to LOW");
+            log_message(F("[solenoid.h]Setting solenoid to LOW"));
         }
 
 };
