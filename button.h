@@ -49,7 +49,7 @@ class button{
                     analogWrite(green_pin,0);
 
                     // wait 500 milliseconds,  turn of -> so it will blink until the color changes to green
-                    delay(500);
+                    delay(250);
 
                     analogWrite(red_pin,0);
                     analogWrite(blue_pin,0);
@@ -71,7 +71,7 @@ class button{
 
 
                 case 'Y':
-                    analogWrite(green_pin,255);
+                    analogWrite(green_pin,50);
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,255);
 
