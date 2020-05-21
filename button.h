@@ -1,4 +1,3 @@
-#define log(x) Serial.println(x)
 
 class button{
 
@@ -32,7 +31,7 @@ class button{
 
             // read the input pin
             bool button_state = digitalRead(input_pin);
-            log("[button.h]Button Pressed");
+            log_message(F("[button.h]Button Pressed"));
 
             return button_state;
         }
@@ -56,7 +55,7 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(green_pin,0);
                     
-                    log("[button.h]Setting LED color to RED");
+                    log_message(F("[button.h]Setting LED color to RED"));
                     break;
 
                 
@@ -66,7 +65,7 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,0);
 
-                    log("[button.h]Setting LED color to GREEN");
+                    log_message(F("[button.h]Setting LED color to GREEN"));
                     break;
 
 
@@ -76,7 +75,7 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,255);
 
-                    log("[button.h]Setting LED color to YELLOW");
+                    log_message(F("[button.h]Setting LED color to YELLOW"));
                     break;
             }
         }
@@ -87,7 +86,7 @@ class button{
             analogWrite(red_pin,0);
             analogWrite(blue_pin,0);
             analogWrite(green_pin,0);
-            log("[button.h]Turning LED off");
+            log_message(F("[button.h]Turning LED off"));
         }
         
         void boot_routine(){
@@ -96,10 +95,10 @@ class button{
             for (int i = 0; i < 3; i++){
 
                 button::set_color('G');
-                log("[button.h]Turning on the LED - GREEN");
+                log_message(F("[button.h]Turning on the LED - GREEN"));
                 delay(1000);
                 button::turn_led_off();
-                log("[button.h]Turning LED off");
+                log_message(F("[button.h]Turning LED off"));
                 delay(1000);
             }
             

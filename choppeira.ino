@@ -1,12 +1,10 @@
+#include "debug.h"
 #include "compressor.h"
 #include "solenoid.h"
 #include "button.h"
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
-
-// Define the print statement
-#define log(x) Serial.println(x)
 
 // Data wire is connected to the Arduino digital pin 4
 #define ONE_WIRE_BUS 4
@@ -23,37 +21,37 @@ solenoid  valve(10);
 button power_button(5,6,7,8);
 
 // Set the target temperature for the liquid
-float min_target_temperature = 0.0f;
-float max_target_temperature = 2.0f;
+const float min_target_temperature PROGMEM = 0.0f;
+const float max_target_temperature PROGMEM = 2.0f;
 
 // bool to know if it's the first iteration for the machine
-bool first_iteration = true;
+bool first_iteration  = true;
 
 
 void setup(){
     
     // Start the serial communication 
     Serial.begin(19200);
-    log("                         .sssssssss.\n                   .sssssssssssssssssss\n                 sssssssssssssssssssssssss\n                ssssssssssssssssssssssssssss\n                 @@sssssssssssssssssssssss@ss\n                 |s@@@@sssssssssssssss@@@@s|s\n          _______|sssss@@@@@sssss@@@@@sssss|s\n        /         sssssssss@sssss@sssssssss|s\n       /  .------+.ssssssss@sssss@ssssssss.|\n      /  /       |...sssssss@sss@sssssss...|\n     |  |        |.......sss@sss@ssss......|\n     |  |        |..........s@ss@sss.......|\n     |  |        |...........@ss@..........|\n      \\  \\       |............ss@..........|\n       \\  '------+...........ss@...........|\n        \\________ .........................|\n                 |.........................|\n                /...........................\n                  |.......................|\n                      |...............|\n\n");
+    log_message(F("                         .sssssssss.\n                   .sssssssssssssssssss\n                 sssssssssssssssssssssssss\n                ssssssssssssssssssssssssssss\n                 @@sssssssssssssssssssssss@ss\n                 |s@@@@sssssssssssssss@@@@s|s\n          _______|sssss@@@@@sssss@@@@@sssss|s\n        /         sssssssss@sssss@sssssssss|s\n       /  .------+.ssssssss@sssss@ssssssss.|\n      /  /       |...sssssss@sss@sssssss...|\n     |  |        |.......sss@sss@ssss......|\n     |  |        |..........s@ss@sss.......|\n     |  |        |...........@ss@..........|\n      \\  \\       |............ss@..........|\n       \\  '------+...........ss@...........|\n        \\________ .........................|\n                 |.........................|\n                /...........................\n                  |.......................|\n                      |...............|\n\n"));
     
-    log("");
-    log("");
+    log_message(F(""));
+    log_message(F(""));
     
-    log("[choppeira.ino]Serial communicate started[9600 bound rate] ");
+    log_message(F("[choppeira.ino]Serial communicate started[9600 bound rate] "));
 
     // Start the emperature sensor 
     sensors.begin();
-    log("[choppeira.ino]Temperature Sensor Initialized");
+    log_message(F("[choppeira.ino]Temperature Sensor Initialized"));
 
     // close the vaulve to avoid leaking
     valve.close_valve();
-    log("[choppeira.ino]Valve Closed");
+    log_message(F("[choppeira.ino]Valve Closed"));
 
     // Set the LED color to RED
     power_button.set_color('R');
 
     // Start the boot sequence for the LED, to let the user know that it's starting
-    log("[choppeira.ino]Initializing the boot sequence for the LED");
+    log_message(F("[choppeira.ino]Initializing the boot sequence for the LED"));
     power_button.boot_routine();
 
 }
@@ -65,24 +63,24 @@ void loop(){
 
     // Check the temperature  - by index means it's getting the data for the first sensor (if in the future more sensores are added) -- index starts at 0
     float current_temperature = sensors.getTempCByIndex(0);
-
+    // float current_temperature = 5.0f;
     
-    Serial.print("[choppeira.ino]Current Temperature: ");
-    log(current_temperature);
+    log_message(F("[choppeira.ino]Current Temperature: "));
+    log_number<float>(current_temperature);
     
     // If the temperature is higher than the target, turn on the cooling system
     if (current_temperature > max_target_temperature){
         
         // turn on the cooling system
         cooling_system.turn_on_cooling();
-        log("[choppeira.ino]Temperature Above Threshold. Turning Cooling system on ...");
+        log_message(F("[choppeira.ino]Temperature Above Threshold. Turning Cooling system on ..."));
 
         // If it's the first iteration, turn the LED red so the user knows the machine won't release beer 
         if (first_iteration){
 
             // Turn the LED to red 
             power_button.set_color('R');
-            log("[choppeira.ino]First iteration not finished... Setting LED color to RED");
+            log_message(F("[choppeira.ino]First iteration not finished... Setting LED color to RED"));
         }
 
         // If it's not the first iteration, the solenoid will continue to be open, but set the color to yellow so the user knows the beer is not within the temperature threshold
@@ -90,7 +88,7 @@ void loop(){
             
             // Set the color to yellow
             power_button.set_color('Y');
-            log("[choppeira.ino]First iteration previously reached... Setting LED color to YELLOW");
+            log_message(F("[choppeira.ino]First iteration previously reached... Setting LED color to YELLOW"));
         }
         
     }
@@ -100,7 +98,7 @@ void loop(){
 
         // turn off the cooling system 
         cooling_system.turn_off_cooling();
-        log("[choppeira.ino]Temperature below the threshold. Turning Cooling off ...");
+        log_message(F("[choppeira.ino]Temperature below the threshold. Turning Cooling off ..."));
 
     }
     
@@ -109,23 +107,23 @@ void loop(){
     {
         // Set the first iteration variable to false, since the timeperature already reached the threshold at least for the first time
         first_iteration = false;
-        log("[choppeira.ino]Temperature below the max threshold, setting the first_iteration variable to false ... ");
+        log_message(F("[choppeira.ino]Temperature below the max threshold, setting the first_iteration variable to false ... "));
         
         // open the valve 
         valve.open_valve();
-        log("[choppeira.ino]Open the valve (and leave it open)");
+        log_message(F("[choppeira.ino]Open the valve (and leave it open)"));
 
         // Set the button color to green, so the user knows the valve is open
         power_button.set_color('G');
-        log("[choppeira.ino]Set the LED color to GREEN (since the valve is open)");
+        log_message(F("[choppeira.ino]Set the LED color to GREEN (since the valve is open)"));
     
     }
 
     // wait for one second before next iteration (1000 ms) ----- time between measurements for the temperature sensor 
     delay(3000);
-    log("[choppeira.ino]Wait 1000ms before next iteration");
+    log_message(F("[choppeira.ino]Wait 1000ms before next iteration"));
 
-    log("");
-    log("");
-    log("");
+    log_message(F(""));
+    log_message(F(""));
+    log_message(F(""));
 }
