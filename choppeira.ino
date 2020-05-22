@@ -29,9 +29,6 @@ bool first_iteration  = true;
 
 void setup(){
     
-    // Start the serial communication 
-    Serial.begin(19200);
-
     // Start the emperature sensor 
     sensors.begin();
 
