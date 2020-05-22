@@ -1,4 +1,3 @@
-#include "debug.h"
 #include "compressor.h"
 #include "solenoid.h"
 #include "button.h"
