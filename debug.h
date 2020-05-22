@@ -1,10 +1,13 @@
-void log_message(String x){
+namespace debug{
+        
+    inline void log_message(String x){
 
-    Serial.println(x);
-}
+        Serial.println(x);
+    }
 
-template <typename T>
-void log_number(T x){
+    template <typename T>
+    inline void log_number(T x){
 
-    Serial.println(x);
+        Serial.println(x);
+    }
 }
