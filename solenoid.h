@@ -17,14 +17,14 @@ class solenoid {
 
             // Open the valve so the liquid comes out 
             digitalWrite(pin,HIGH);
-            log_message(F("[solenoid.h]Setting solenoid to HIGH"));
+            debug::log_message(F("[solenoid.h]Setting solenoid to HIGH"));
         }
 
         void close_valve(){
 
             // Close the valve 
             digitalWrite(pin,LOW);
-            log_message(F("[solenoid.h]Setting solenoid to LOW"));
+            debug::log_message(F("[solenoid.h]Setting solenoid to LOW"));
         }
 
 };

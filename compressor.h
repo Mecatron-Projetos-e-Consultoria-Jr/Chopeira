@@ -17,14 +17,14 @@ class compressor {
 
             // Close the relay (so the cooler turns on)
             digitalWrite(pin,HIGH);
-            log_message("[compressor.h]Setting cooling to HIGH");
+            debug::log_message("[compressor.h]Setting cooling to HIGH");
         }
 
         void turn_off_cooling(){
 
             // Open the relay
             digitalWrite(pin,LOW);
-            log_message("[compressor.h]Setting cooling to LOW");
+            debug::log_message("[compressor.h]Setting cooling to LOW");
         }
 
 };
