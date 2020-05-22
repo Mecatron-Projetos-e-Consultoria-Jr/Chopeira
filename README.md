@@ -85,7 +85,7 @@ void set_color(char color){
 
 
                 case 'Y':
-                    analogWrite(green_pin,255);
+                    analogWrite(green_pin,50);
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,255);
                     break;
@@ -97,6 +97,24 @@ void set_color(char color){
 e.g :
 
 `power_button.set_color('R')` // Sets the color of the LED to red (and blinks it).
+
+##### boot_routine()
+Void method used to blink the LED in a certain pattern to let the user know the system is booting. It's called in the setUp function in the main file.
+
+```c++
+void boot_routine(){
+
+            // blink 3 times the led with the green color, to let the user know the boot sequence is starting
+            for (int i = 0; i < 3; i++){
+
+                button::set_color('G');
+                delay(1000);
+                button::turn_led_off();
+                delay(1000);
+            }
+            
+    }
+```
 
 ---
 
@@ -233,9 +251,10 @@ Set the target temperature:
 
 ```c++
 // Set the target temperature for the liquid
-float min_target_temperature = 0.0f;
-float max_target_temperature = 2.0f;
+const float min_target_temperature PROGMEM = 0.0f;
+const float max_target_temperature PROGMEM = 2.0f;
 ```
+obs: Set them to const so they don't change through the code, and set them to `PROGMEM`, so they are not stored in SRAM and don't take dynamic memory space.
 
 Creates a boolean variable to track rather or not it's the first iteration for the machine
 ```c++
@@ -252,6 +271,12 @@ void setup(){
 
     // close the vaulve to avoid leaking
     valve.close_valve();
+
+    // Set the LED color to RED
+    power_button.set_color('R');
+
+    // Start the boot sequence for the LED, to let the user know that it's starting
+    power_button.boot_routine();
 }
 ```
 
@@ -262,10 +287,10 @@ Get the temperature from the sensor:
 
 ```c++
 // Resquest the temperature for all the sensors connected to the arduino 
-    sensors.requestTemperatures(); 
+sensors.requestTemperatures(); 
 
-    // Check the temperature  - by index means it's getting the data for the first sensor (if in the future more sensores are added) -- index starts at 0
-    float current_temperature = sensors.getTempCByIndex(0);
+// Check the temperature  - by index means it's getting the data for the first sensor (if in the future more sensores are added) -- index starts at 0
+float current_temperature = sensors.getTempCByIndex(0);
 ```
 
 If the temperature is above target, turn on cooling, if it is the first iteration of the machine it means that the solenoid valve will be closed, so set the RGB color to red. If it is nor the first iteration, even though the temperature is outside the threshold the valve will not close, so set the RGB to yellow so the user knows it's still possible to get the beer, but it will not be in the right temperature and that the user should wait.
