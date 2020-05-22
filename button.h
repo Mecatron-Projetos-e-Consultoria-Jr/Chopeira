@@ -30,8 +30,6 @@ class button{
 
             // read the input pin
             bool button_state = digitalRead(input_pin);
-            debug::log_message(F("[button.h]Button Pressed"));
-
             return button_state;
         }
 
@@ -54,7 +52,6 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(green_pin,0);
                     
-                    debug::log_message(F("[button.h]Setting LED color to RED"));
                     break;
 
                 
@@ -64,7 +61,6 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,0);
 
-                    debug::log_message(F("[button.h]Setting LED color to GREEN"));
                     break;
 
 
@@ -74,7 +70,6 @@ class button{
                     analogWrite(blue_pin,0);
                     analogWrite(red_pin,255);
 
-                    debug::log_message(F("[button.h]Setting LED color to YELLOW"));
                     break;
             }
         }
@@ -85,7 +80,6 @@ class button{
             analogWrite(red_pin,0);
             analogWrite(blue_pin,0);
             analogWrite(green_pin,0);
-            debug::log_message(F("[button.h]Turning LED off"));
         }
         
         void boot_routine(){
@@ -94,10 +88,8 @@ class button{
             for (int i = 0; i < 3; i++){
 
                 button::set_color('G');
-                debug::log_message(F("[button.h]Turning on the LED - GREEN"));
                 delay(1000);
                 button::turn_led_off();
-                debug::log_message(F("[button.h]Turning LED off"));
                 delay(1000);
             }
             
