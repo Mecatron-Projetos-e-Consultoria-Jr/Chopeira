@@ -6,7 +6,7 @@
 #include <DallasTemperature.h>
 
 // Data wire is connected to the Arduino digital pin 4
-#define ONE_WIRE_BUS 4
+#define ONE_WIRE_BUS 12
 
 // Setup a oneWire instance to communicate with any OneWire devices
 OneWire oneWire(ONE_WIRE_BUS);
@@ -15,9 +15,9 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
 // instantiate compressor to control cooling system and attach it to GPIO 9 / instantiate the selonoide class and attach it to pin 10 on the arduino  / instance the button class and Set the data pin to 13, red led to analof A0, green to analog A1, blue to analog A2
-compressor cooling_system(9);
-solenoid  valve(10);
-button power_button(5,6,7,8);
+compressor cooling_system(7);
+solenoid  valve(8);
+button power_button(5,11,10,9);
 
 // Set the target temperature for the liquid
 const float min_target_temperature PROGMEM = 0.0f;
