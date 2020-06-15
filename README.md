@@ -9,37 +9,25 @@
 
 ## Button Class
 
-The button class handles both the input from the button and RGB LED indicator.
+The button class handles the RGB LED indicator.
 
 
 ### Constructor 
-The constructor takes 4 arguments:
+The constructor takes 3 arguments:
     
-    1. int data_pin (connected to digital pin);
-    2. int r_pin (connected to analog pin);
-    3. int g_pin (connected to analog pin);
-    4. int b_pin (connected to analog pin)
+    1. int r_pin (connected to a digital pin);
+    2. int g_pin (connected to a digital pin);
+    3. int b_pin (connected to a digital pin)
 
 
 Sets the pinMode for each GPIO (3 OUTPUT and on digital INPUT)
 
 e.g: 
 
-`button power_button(9,A0,A1,A2)`
+`button power_button(11,10,9)`
 
 ### Methods 
 
-##### is_pressed( )
-Returns a bool, `true` if the button is pressed and `false` if it is not.
-
-```c++
-bool is_pressed(){
-
-            // read the input pin
-            bool button_state = digitalRead(input_pin);
-            return button_state;
-        }
-```
 
 ##### set_color(char color)
 Void method that changes the color of the RGB button.
@@ -229,7 +217,7 @@ Setup the temperature sensor library:
 
 ```c++
 // Data wire is connected to the Arduino digital pin 4
-#define ONE_WIRE_BUS 4
+#define ONE_WIRE_BUS 12
 
 // Setup a oneWire instance to communicate with any OneWire devices
 OneWire oneWire(ONE_WIRE_BUS);
@@ -242,9 +230,9 @@ Instantiate the custom classes:
 
 ```c++
 // instantiate compressor to control cooling system and attach it to GPIO 9 / instantiate the selonoide class and attach it to pin 10 on the arduino  / instance the button class and Set the data pin to 13, red led to analof A0, green to analog A1, blue to analog A2
-compressor cooling_system(9);
-solenoid  valve(10);
-button power_button(13,A0,A1,A2);
+compressor cooling_system(7);
+solenoid  valve(8);
+button power_button(11,10,9);
 ```
 
 Set the target temperature:
