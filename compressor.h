@@ -1,4 +1,4 @@
-
+#include "Arduino.h"
 
 class compressor {
 
@@ -7,24 +7,13 @@ class compressor {
     
     public:
     
-        compressor(int digital_pin){
+        // Constructor for the compressor class
+        compressor(int digital_pin);
 
-            pinMode(digital_pin,OUTPUT);
-            pin = digital_pin;
-        }
+        // Turn on the cooling system by closing the relay circuit that controls the compressor
+        void turn_on_cooling();
 
-        void turn_on_cooling(){
-
-            // Close the relay (so the cooler turns on)
-            digitalWrite(pin,HIGH);
-            
-        }
-
-        void turn_off_cooling(){
-
-            // Open the relay
-            digitalWrite(pin,LOW);
-            
-        }
+        // Turn off the cooling system by oppening the relay circuit that controls the compressor
+        void turn_off_cooling();
 
 };
