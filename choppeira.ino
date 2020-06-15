@@ -17,7 +17,7 @@ DallasTemperature sensors(&oneWire);
 // instantiate compressor to control cooling system and attach it to GPIO 9 / instantiate the selonoide class and attach it to pin 10 on the arduino  / instance the button class and Set the data pin to 13, red led to analof A0, green to analog A1, blue to analog A2
 compressor cooling_system(7);
 solenoid  valve(8);
-button power_button(5,11,10,9);
+button power_button(11,10,9);
 
 // Set the target temperature for the liquid
 const float min_target_temperature PROGMEM = 0.0f;

@@ -1,26 +1,16 @@
 #include "button.h"
 
-button::button(int data_pin,int r_pin, int g_pin, int b_pin){
+button::button(int r_pin, int g_pin, int b_pin){
 
         red_pin = r_pin;
         blue_pin = b_pin;
         green_pin = g_pin;
-        input_pin = data_pin;
 
         // set the pin mode to output
         pinMode(red_pin,OUTPUT);
         pinMode(blue_pin,OUTPUT);
         pinMode(green_pin,OUTPUT);
 
-        // set the pin mode for the button to input
-        pinMode(input_pin,INPUT);
-}
-
-bool button::is_pressed(){
-
-    // read the input pin
-    bool button_state = digitalRead(input_pin);
-    return button_state;
 }
 
 void button::set_color(char color){
