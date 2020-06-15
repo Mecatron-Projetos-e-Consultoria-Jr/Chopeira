@@ -1,4 +1,4 @@
-
+#include "Arduino.h"
 
 class solenoid {
 
@@ -7,22 +7,13 @@ class solenoid {
 
     public:
 
-        solenoid(int output_pin){
-            pin = output_pin;
-            pinMode(pin,OUTPUT);
-          
-        }
+        // Constructor for the solenoid class, It takes the arduino Pin number as a parameter
+        solenoid(int output_pin);
 
-        void open_valve(){
+        // Open the solenoid valve 
+        void open_valve();
 
-            // Open the valve so the liquid comes out 
-            digitalWrite(pin,HIGH);
-        }
-
-        void close_valve(){
-
-            // Close the valve 
-            digitalWrite(pin,LOW);
-        }
+        // Close the solenoid valve 
+        void close_valve();
 
 };
