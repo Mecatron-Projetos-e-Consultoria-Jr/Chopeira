@@ -1,3 +1,4 @@
+![Status Projeto](https://img.shields.io/badge/Status-Finalizado-green)
 # Chopeira Documentation 
 
 ![](Chopeira.png)
@@ -341,3 +342,10 @@ Wait the necessary time for the temperature sensor to update its readings
 // wait for one second before next iteration (1000 ms) ----- time between measurements for the temperature sensor 
     delay(1000);
 ```
+
+### Datas
+- Início - 020
+- Fim - 020
+### Membros Executores 
+- Goto - `ECA020`;
+- Pedro - `ECA020`.
